@@ -1,6 +1,3 @@
-'use client';
-
-import * as React from 'react';
 import {
   Box,
   Sheet,
@@ -29,6 +26,7 @@ import {
   IconBrandLinkedin,
 } from '@tabler/icons-react';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
 
 interface Article {
   id: number;
@@ -298,36 +296,31 @@ function Meta({ article }: { article: Article }) {
   );
 }
 
-export default function ArticlesHome() {
-  const [articles, setArticles] = React.useState<Article[]>([]);
-  const [categories, setCategories] = React.useState<{category: string, count: number}[]>([]);
-  const [loading, setLoading] = React.useState(true);
+export default async function ArticlesHome() {
+  const { data: articles, error: articlesError } = await supabase
+    .from('articles')
+    .select('*')
+    .order('published_date', { ascending: false });
 
-  React.useEffect(() => {
-    // Simulate API call with static data
-    const loadData = () => {
-      setArticles(sampleArticles);
-      setCategories(sampleCategories);
-      setLoading(false);
-    };
+  const { data: categories, error: categoriesError } = await supabase
+    .from('categories')
+    .select('*');
 
-    // Simulate loading delay
-    setTimeout(loadData, 1000);
-  }, []);
-
-  if (loading) {
+  if (articlesError || categoriesError) {
     return (
-      <Box className="min-h-screen flex items-center justify-center">
-        <CircularProgress size="lg" />
+      <Box className="max-w-4xl mx-auto mt-12 px-4">
+        <Alert color="danger" variant="soft">
+          Error loading data: {articlesError?.message || categoriesError?.message}
+        </Alert>
       </Box>
     );
   }
 
-  if (articles.length === 0) {
+  if (!articles || articles.length === 0) {
     return (
       <Box className="max-w-4xl mx-auto mt-12 px-4">
-        <Alert color="danger" variant="soft">
-          No articles found
+        <Alert color="warning" variant="soft">
+          No articles found. Please run the migration script to populate data.
         </Alert>
       </Box>
     );

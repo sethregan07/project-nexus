@@ -156,116 +156,6 @@ const sampleArticles: Article[] = [
     created_at: "2024-11-21T14:40:00Z",
     updated_at: "2024-11-21T14:40:00Z",
   },
-  {
-    id: 11,
-    title: "Augmented Reality in Education",
-    content: "Augmented reality is transforming education by providing immersive learning experiences. From interactive textbooks to virtual field trips, AR technology is making learning more engaging and effective.",
-    author: "Chris Lee",
-    image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
-    category: "Education",
-    published_date: "2024-11-20T16:55:00Z",
-    created_at: "2024-11-20T16:55:00Z",
-    updated_at: "2024-11-20T16:55:00Z",
-  },
-  {
-    id: 12,
-    title: "Sustainable Fashion Movement",
-    content: "The fashion industry is undergoing a sustainability revolution. This article examines eco-friendly materials, ethical manufacturing practices, and consumer trends shaping the future of sustainable fashion.",
-    author: "Maria Garcia",
-    image_url: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80",
-    category: "Fashion",
-    published_date: "2024-11-19T11:30:00Z",
-    created_at: "2024-11-19T11:30:00Z",
-    updated_at: "2024-11-19T11:30:00Z",
-  },
-  {
-    id: 13,
-    title: "The Rise of Voice Technology",
-    content: "Voice assistants and speech recognition are becoming ubiquitous. This article explores the technology behind voice interfaces, current applications, and future developments in voice-controlled systems.",
-    author: "Kevin White",
-    image_url: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
-    category: "Technology",
-    published_date: "2024-11-18T13:15:00Z",
-    created_at: "2024-11-18T13:15:00Z",
-    updated_at: "2024-11-18T13:15:00Z",
-  },
-  {
-    id: 14,
-    title: "Urban Farming Innovations",
-    content: "As cities grow, urban farming offers solutions for local food production. This article discusses vertical farming, hydroponics, and other innovative approaches to sustainable urban agriculture.",
-    author: "Rachel Green",
-    image_url: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
-    category: "Agriculture",
-    published_date: "2024-11-17T15:20:00Z",
-    created_at: "2024-11-17T15:20:00Z",
-    updated_at: "2024-11-17T15:20:00Z",
-  },
-  {
-    id: 15,
-    title: "The Psychology of Social Media",
-    content: "Social media platforms shape our behavior and mental health. This article examines the psychological effects of social networking, addiction patterns, and strategies for healthy digital habits.",
-    author: "Daniel Kim",
-    image_url: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80",
-    category: "Psychology",
-    published_date: "2024-11-16T10:45:00Z",
-    created_at: "2024-11-16T10:45:00Z",
-    updated_at: "2024-11-16T10:45:00Z",
-  },
-  {
-    id: 16,
-    title: "Advances in Medical Imaging",
-    content: "Medical imaging technology continues to evolve, providing clearer and more accurate diagnoses. This article covers recent developments in MRI, CT scans, and emerging imaging techniques.",
-    author: "Dr. Jennifer Adams",
-    image_url: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&q=80",
-    category: "Medicine",
-    published_date: "2024-11-15T12:00:00Z",
-    created_at: "2024-11-15T12:00:00Z",
-    updated_at: "2024-11-15T12:00:00Z",
-  },
-  {
-    id: 17,
-    title: "The Economics of Cryptocurrency",
-    content: "Cryptocurrencies are reshaping financial systems worldwide. This article analyzes the economic implications, market dynamics, and regulatory challenges facing digital currencies.",
-    author: "Michael Thompson",
-    image_url: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&q=80",
-    category: "Finance",
-    published_date: "2024-11-14T14:25:00Z",
-    created_at: "2024-11-14T14:25:00Z",
-    updated_at: "2024-11-14T14:25:00Z",
-  },
-  {
-    id: 18,
-    title: "Climate Change Adaptation Strategies",
-    content: "As climate change impacts become more evident, adaptation strategies are crucial. This article explores community resilience, infrastructure improvements, and policy approaches to climate adaptation.",
-    author: "Dr. Laura Nelson",
-    image_url: "https://images.unsplash.com/photo-1569163139394-de4e4f43e4e3?w=800&q=80",
-    category: "Environment",
-    published_date: "2024-11-13T16:10:00Z",
-    created_at: "2024-11-13T16:10:00Z",
-    updated_at: "2024-11-13T16:10:00Z",
-  },
-  {
-    id: 19,
-    title: "The Future of Work",
-    content: "Work is evolving with technology and societal changes. This article examines trends in remote work, gig economy, automation, and the skills needed for future careers.",
-    author: "James Wilson",
-    image_url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80",
-    category: "Business",
-    published_date: "2024-11-12T11:55:00Z",
-    created_at: "2024-11-12T11:55:00Z",
-    updated_at: "2024-11-12T11:55:00Z",
-  },
-  {
-    id: 20,
-    title: "Renewable Energy Storage Solutions",
-    content: "Energy storage is key to renewable energy adoption. This article discusses battery technology, pumped hydro storage, and emerging solutions for efficient energy storage and distribution.",
-    author: "Sophie Patel",
-    image_url: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80",
-    category: "Energy",
-    published_date: "2024-11-11T13:40:00Z",
-    created_at: "2024-11-11T13:40:00Z",
-    updated_at: "2024-11-11T13:40:00Z",
-  },
 ];
 
 type Heading = {
@@ -614,16 +504,6 @@ interface TableOfContentsJoyProps {
 }
 
 function TableOfContentsJoy({ headings }: TableOfContentsJoyProps) {
-  const [active, setActive] = React.useState<string | null>(null);
-
-  const handleClick = (id: string) => {
-    setActive(id);
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <Box>
       <Stack direction="row" spacing={1} className="mb-3 items-center">
@@ -634,7 +514,6 @@ function TableOfContentsJoy({ headings }: TableOfContentsJoyProps) {
         {headings.map(h => (
           <ListItem
             key={h.id}
-            onClick={() => handleClick(h.id)}
             className={`cursor-pointer ${
               h.level === 1
                 ? 'pl-0'
@@ -644,8 +523,8 @@ function TableOfContentsJoy({ headings }: TableOfContentsJoyProps) {
             }`}
             sx={{
               '& .toc-link': {
-                color: active === h.id ? 'primary.plainColor' : 'text.primary',
-                fontWeight: active === h.id ? 600 : 400,
+                color: 'text.primary',
+                fontWeight: 400,
               },
               '&:hover .toc-link': {
                 color: 'primary.plainColor',
