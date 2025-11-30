@@ -305,15 +305,14 @@ export default async function ArticlesHome() {
     .select('*')
     .order('published_date', { ascending: false });
 
-  const { data: categories, error: categoriesError } = await supabase
-    .from('categories')
-    .select('*');
+  // Use static categories instead of querying database
+  const categories = sampleCategories;
 
-  if (articlesError || categoriesError) {
+  if (articlesError) {
     return (
       <Box className="max-w-4xl mx-auto mt-12 px-4">
         <Alert color="danger" variant="soft">
-          Error loading data: {articlesError?.message || categoriesError?.message}
+          Error loading data: {articlesError?.message}
         </Alert>
       </Box>
     );
