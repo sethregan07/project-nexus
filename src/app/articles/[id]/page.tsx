@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
 
 import {
   Box,
@@ -667,16 +668,36 @@ export default function ArticleDetail() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    // Simulate API call with static data
-    const loadArticle = () => {
-      const articleId = parseInt(id || '1');
-      const foundArticle = sampleArticles.find(a => a.id === articleId) || null;
-      setArticle(foundArticle);
-      setLoading(false);
+    const loadArticle = async () => {
+      try {
+        const articleId = parseInt(id || '1');
+
+        // First try to fetch from Supabase
+        const { data: supabaseArticle, error } = await supabase
+          .from('articles')
+          .select('*')
+          .eq('id', articleId)
+          .maybeSingle();
+
+        if (supabaseArticle && !error) {
+          setArticle(supabaseArticle);
+        } else {
+          // Fallback to static data
+          const foundArticle = sampleArticles.find(a => a.id === articleId) || null;
+          setArticle(foundArticle);
+        }
+      } catch (err) {
+        console.error('Error loading article:', err);
+        // Fallback to static data on error
+        const articleId = parseInt(id || '1');
+        const foundArticle = sampleArticles.find(a => a.id === articleId) || null;
+        setArticle(foundArticle);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    // Simulate loading delay
-    setTimeout(loadArticle, 500);
+    loadArticle();
   }, [id]);
 
   if (loading) {
