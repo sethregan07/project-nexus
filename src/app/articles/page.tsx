@@ -15,6 +15,9 @@ import {
   IconEye,
 } from '@tabler/icons-react'
 
+// Force dynamic rendering to prevent static generation during build
+export const dynamic = 'force-dynamic'
+
 interface Article {
   id: number
   title: string

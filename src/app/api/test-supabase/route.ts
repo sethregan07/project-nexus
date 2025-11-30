@@ -1,8 +1,27 @@
-import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
+
+// Force dynamic rendering to prevent static analysis during build
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
+    // Check if Supabase is available (environment variables are set)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      return NextResponse.json({
+        status: 'error',
+        message: 'Supabase environment variables not configured',
+        error: 'Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY',
+        timestamp: new Date().toISOString()
+      }, { status: 500 });
+    }
+
+    // Create Supabase client only when needed (runtime) - lazy import to prevent build-time issues
+    const { createClient } = await import('@supabase/supabase-js');
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
     // Test basic connection
     const { data: connectionTest, error: connectionError } = await supabase
       .from('articles')
