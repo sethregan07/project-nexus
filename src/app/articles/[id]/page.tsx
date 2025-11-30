@@ -1,8 +1,7 @@
-'use client';
-
-import * as React from 'react';
-import { useParams } from 'next/navigation';
+import React from 'react';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
 import {
   Box,
@@ -613,16 +612,6 @@ interface TableOfContentsJoyProps {
 }
 
 function TableOfContentsJoy({ headings }: TableOfContentsJoyProps) {
-  const [active, setActive] = React.useState<string | null>(null);
-
-  const handleClick = (id: string) => {
-    setActive(id);
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <Box>
       <Stack direction="row" spacing={1} className="mb-3 items-center">
@@ -633,7 +622,6 @@ function TableOfContentsJoy({ headings }: TableOfContentsJoyProps) {
         {headings.map(h => (
           <ListItem
             key={h.id}
-            onClick={() => handleClick(h.id)}
             className={`cursor-pointer ${
               h.level === 1
                 ? 'pl-0'
@@ -643,8 +631,8 @@ function TableOfContentsJoy({ headings }: TableOfContentsJoyProps) {
             }`}
             sx={{
               '& .toc-link': {
-                color: active === h.id ? 'primary.plainColor' : 'text.primary',
-                fontWeight: active === h.id ? 600 : 400,
+                color: 'text.primary',
+                fontWeight: 400,
               },
               '&:hover .toc-link': {
                 color: 'primary.plainColor',
@@ -661,33 +649,20 @@ function TableOfContentsJoy({ headings }: TableOfContentsJoyProps) {
   );
 }
 
-export default function ArticleDetail() {
-  const { id } = useParams<{ id: string }>();
-  const [article, setArticle] = React.useState<Article | null>(null);
-  const [loading, setLoading] = React.useState(true);
+interface ArticleDetailProps {
+  params: {
+    id: string;
+  };
+}
 
-  React.useEffect(() => {
-    // Simulate API call with static data
-    const loadArticle = () => {
-      const articleId = parseInt(id || '1');
-      const foundArticle = sampleArticles.find(a => a.id === articleId) || null;
-      setArticle(foundArticle);
-      setLoading(false);
-    };
+export default async function ArticleDetail({ params }: ArticleDetailProps) {
+  const { data: article, error } = await supabase
+    .from('articles')
+    .select('*')
+    .eq('id', parseInt(params.id))
+    .single();
 
-    // Simulate loading delay
-    setTimeout(loadArticle, 500);
-  }, [id]);
-
-  if (loading) {
-    return (
-      <Box className="min-h-screen flex items-center justify-center">
-        <CircularProgress size="lg" />
-      </Box>
-    );
-  }
-
-  if (!article) {
+  if (error || !article) {
     return (
       <Box className="max-w-4xl mx-auto mt-12 px-4">
         <Alert color="danger" variant="soft">
